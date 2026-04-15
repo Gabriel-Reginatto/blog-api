@@ -1,4 +1,9 @@
 package br.com.blog.api.repositories;
 
-public interface CommentRepository {
+import br.com.blog.api.entities.Comment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 }

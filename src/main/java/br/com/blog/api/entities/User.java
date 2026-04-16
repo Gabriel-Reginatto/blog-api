@@ -115,6 +115,10 @@ public class User {
         return updatedAt;
     }
 
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public List<Post> getPosts() {
         return posts;
     }

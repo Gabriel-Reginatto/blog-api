@@ -110,4 +110,17 @@ public class UserService {
 
         return userMapper.toResponseDTO(savedUser);
     }
+
+    public void deleteUser(Long id) {
+
+        logger.info("Deleting user with ID: {}", id);
+
+        var user = userRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("User", id)
+                );
+
+
+        userRepository.delete(user);
+    }
 }

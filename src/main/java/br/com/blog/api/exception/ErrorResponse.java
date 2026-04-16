@@ -2,7 +2,7 @@ package br.com.blog.api.exception;
 
 import java.time.OffsetDateTime;
 
-public record ErroResponse(
+public record ErrorResponse(
         int status,
         String error,
         String message,

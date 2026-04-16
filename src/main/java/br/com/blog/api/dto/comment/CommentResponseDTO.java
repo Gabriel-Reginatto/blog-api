@@ -1,4 +1,13 @@
 package br.com.blog.api.dto.comment;
 
-public class CommentResponseDTO {
-}
+
+import java.time.OffsetDateTime;
+
+public record CommentResponseDTO(
+
+        Long id,
+        String content,
+        String authorUsername,
+        Long postId,
+        OffsetDateTime createdAt
+) {}

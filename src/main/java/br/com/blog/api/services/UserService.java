@@ -2,6 +2,7 @@ package br.com.blog.api.services;
 
 import br.com.blog.api.dto.user.UserResponseDTO;
 import br.com.blog.api.entities.User;
+import br.com.blog.api.exception.ResourceNotFoundException;
 import br.com.blog.api.mapper.UserMapper;
 import br.com.blog.api.repositories.UserRepository;
 import org.slf4j.Logger;
@@ -26,10 +27,12 @@ public class UserService {
 
         User entity =  repository.findById(id)
                 .orElseThrow(
-                        () -> new IllegalArgumentException("User not found with ID: " + id)
+                        () -> new ResourceNotFoundException("user", id)
                 );
 
         return mapper.toResponseDTO(entity);
     }
+
+
 
 }

@@ -22,8 +22,11 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 180)
-    private String fullName;
+    @Column(nullable = false, length = 50)
+    private String firstName;
+
+    @Column(nullable = false, length = 100)
+    private String lastName;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String bio;
@@ -32,7 +35,7 @@ public class User {
     private OffsetDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(updatable = false, nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime updatedAt;
 
     @OneToMany(
@@ -42,7 +45,7 @@ public class User {
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "author")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     public User() {}
 
@@ -76,12 +79,20 @@ public class User {
         this.email = email;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getBio() {
@@ -122,12 +133,13 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getFullName(), user.getFullName()) && Objects.equals(getBio(), user.getBio()) && Objects.equals(getCreatedAt(), user.getCreatedAt()) && Objects.equals(getUpdatedAt(), user.getUpdatedAt()) && Objects.equals(getPosts(), user.getPosts()) && Objects.equals(getComments(), user.getComments());
+        return getId() != null && Objects.equals(getId(), user.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getEmail(), getFullName(), getBio(), getCreatedAt(), getUpdatedAt(), getPosts(), getComments());
+        return getClass().hashCode();
     }
 }

@@ -14,9 +14,13 @@ public record UserCreateRequestDTO(
         @Email(message = "email must be valid")
         String email,
 
-        @NotBlank(message = "fullName is required")
-        @Size(min = 3, max = 180, message = "fullName must be between 3 and 180 characters")
-        String fullName,
+        @NotBlank(message = "first_name is required")
+        @Size(min = 2, max = 100, message = "firstName must be between 3 and 180 characters")
+        String firstName,
+
+        @NotBlank(message = "last_name is required")
+        @Size(min = 3, max = 100, message = "last_name must be between 3 and 180 characters")
+        String lastName,
 
         String bio
 ){}

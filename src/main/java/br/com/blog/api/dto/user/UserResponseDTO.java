@@ -7,7 +7,8 @@ public record UserResponseDTO(
         Long id,
         String username,
         String email,
-        String fullName,
+        String firstName,
+        String lastName,
         String bio,
         OffsetDateTime createdAt
 ){}

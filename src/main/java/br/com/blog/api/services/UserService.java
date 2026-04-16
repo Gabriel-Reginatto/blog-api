@@ -1,13 +1,17 @@
 package br.com.blog.api.services;
 
+import br.com.blog.api.dto.user.UserCreateRequestDTO;
 import br.com.blog.api.dto.user.UserResponseDTO;
 import br.com.blog.api.entities.User;
+import br.com.blog.api.exception.DuplicateResourceException;
 import br.com.blog.api.exception.ResourceNotFoundException;
 import br.com.blog.api.mapper.UserMapper;
 import br.com.blog.api.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
 
 @Service
 public class UserService {
@@ -45,6 +49,22 @@ public class UserService {
         return userMapper.toResponseDTO(entity);
     }
 
-    public UserResponseDTO
+    public UserResponseDTO createUser(UserCreateRequestDTO request) {
+
+        logger.info("Creating a user with username: {}", request.username());
+
+        if (userRepository.existsByEmail(request.email())) {
+            throw new DuplicateResourceException("User", "username", request.email());
+        }
+
+        if (userRepository.existsByUsername(request.username())) {
+            throw new DuplicateResourceException("User", "username", request.username());
+        }
+
+        User entity = userMapper.toEntity(request);
+        User savedEntity = userRepository.save(entity);
+
+        return userMapper.toResponseDTO(savedEntity);
+    }
 
 }

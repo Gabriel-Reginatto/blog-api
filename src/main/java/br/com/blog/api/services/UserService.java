@@ -1,5 +1,6 @@
 package br.com.blog.api.services;
 
+import br.com.blog.api.dto.user.UserCreateRequestDTO;
 import br.com.blog.api.dto.user.UserResponseDTO;
 import br.com.blog.api.entities.User;
 import br.com.blog.api.exception.ResourceNotFoundException;
@@ -44,5 +45,6 @@ public class UserService {
 
         return mapper.toResponseDTO(entity);
     }
+
 
 }

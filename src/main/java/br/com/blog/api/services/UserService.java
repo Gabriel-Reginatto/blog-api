@@ -33,6 +33,16 @@ public class UserService {
         return mapper.toResponseDTO(entity);
     }
 
+    public UserResponseDTO findByUsername(String username) {
 
+        logger.info("Finding user by username: {}", username);
+
+        var entity = repository.findByUsername(username)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("user", "username", username)
+                );
+
+        return mapper.toResponseDTO(entity);
+    }
 
 }

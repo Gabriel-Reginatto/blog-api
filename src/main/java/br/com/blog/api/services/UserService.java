@@ -9,9 +9,9 @@ import br.com.blog.api.mapper.UserMapper;
 import br.com.blog.api.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.OffsetDateTime;
 
 @Service
 public class UserService {
@@ -54,7 +54,7 @@ public class UserService {
         logger.info("Creating a user with username: {}", request.username());
 
         if (userRepository.existsByEmail(request.email())) {
-            throw new DuplicateResourceException("User", "username", request.email());
+            throw new DuplicateResourceException("User", "email", request.email());
         }
 
         if (userRepository.existsByUsername(request.username())) {
@@ -62,9 +62,18 @@ public class UserService {
         }
 
         User entity = userMapper.toEntity(request);
+
         User savedEntity = userRepository.save(entity);
 
         return userMapper.toResponseDTO(savedEntity);
     }
 
+    public Page<UserResponseDTO> findAll(Pageable pageable) {
+
+        logger.info("Finding all users with pagination: page {}, size {}", pageable.getPageNumber(), pageable.getPageSize());
+
+        Page<User> page = userRepository.findAll(pageable);
+
+        return page.map(userMapper::toResponseDTO);
+    }
 }

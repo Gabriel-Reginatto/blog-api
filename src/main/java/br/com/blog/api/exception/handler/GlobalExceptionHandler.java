@@ -1,5 +1,6 @@
 package br.com.blog.api.exception.handler;
 
+import br.com.blog.api.exception.BusinessException;
 import br.com.blog.api.exception.DuplicateResourceException;
 import br.com.blog.api.exception.ErrorResponse;
 import br.com.blog.api.exception.ResourceNotFoundException;
@@ -39,6 +40,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public final ResponseEntity<ErrorResponse> handleBusiness(BusinessException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                "Bad request",
+                ex.getMessage(),
+                OffsetDateTime.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
 }

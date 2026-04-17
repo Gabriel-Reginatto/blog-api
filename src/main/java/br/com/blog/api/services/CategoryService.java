@@ -4,6 +4,7 @@ import br.com.blog.api.dto.category.CategoryCreateRequestDTO;
 import br.com.blog.api.dto.category.CategoryResponseDTO;
 import br.com.blog.api.entities.Category;
 import br.com.blog.api.exception.DuplicateResourceException;
+import br.com.blog.api.exception.ResourceNotFoundException;
 import br.com.blog.api.mapper.CategoryMapper;
 import br.com.blog.api.repositories.CategoryRepository;
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
-import java.time.OffsetTime;
 
 @Service
 public class CategoryService {
@@ -25,7 +25,7 @@ public class CategoryService {
         this.categoryMapper = categoryMapper;
     }
 
-    public CategoryResponseDTO create(CategoryCreateRequestDTO request) {
+    public CategoryResponseDTO createCategory(CategoryCreateRequestDTO request) {
 
         logger.info("Creating category with name: {}", request.name());
 
@@ -39,5 +39,15 @@ public class CategoryService {
         var savedEntity = categoryRepository.save(entity);
 
         return categoryMapper.toResponseDTO(savedEntity);
+    }
+
+    public CategoryResponseDTO findById(Long id) {
+
+        var category = categoryRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Category", id)
+                );
+
+        return categoryMapper.toResponseDTO(category);
     }
 }

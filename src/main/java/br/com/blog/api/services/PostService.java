@@ -122,4 +122,16 @@ public class PostService {
 
         return postMapper.toResponseDTO(savedPost);
     }
+
+    public void delete(Long id) {
+
+        logger.info("Deleting post with ID: {}", id);
+
+        var post = postRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Post", id)
+                );
+
+        postRepository.delete(post);
+    }
 }

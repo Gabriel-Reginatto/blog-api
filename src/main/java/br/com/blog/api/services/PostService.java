@@ -66,6 +66,7 @@ public class PostService {
         Post post = postMapper.toEntity(request);
         post.setAuthor(user);
         post.setCategories(cat);
+        post.setCreatedAt(OffsetDateTime.now());
 
         Post savedPost = postRepository.save(post);
 

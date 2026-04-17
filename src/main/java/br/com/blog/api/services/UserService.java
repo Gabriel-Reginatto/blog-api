@@ -65,7 +65,7 @@ public class UserService {
         }
 
         User entity = userMapper.toEntity(request);
-
+        entity.setCreatedAt(OffsetDateTime.now());
         User savedEntity = userRepository.save(entity);
 
         return userMapper.toResponseDTO(savedEntity);

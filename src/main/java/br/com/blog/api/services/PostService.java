@@ -2,6 +2,7 @@ package br.com.blog.api.services;
 
 import br.com.blog.api.dto.post.PostCreateRequestDTO;
 import br.com.blog.api.dto.post.PostResponseDTO;
+import br.com.blog.api.dto.post.PostUpdateRequestDTO;
 import br.com.blog.api.entities.Category;
 import br.com.blog.api.entities.Post;
 import br.com.blog.api.exception.ResourceNotFoundException;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -90,5 +92,34 @@ public class PostService {
         Page<Post> page = postRepository.findAll(pageable);
 
         return page.map(postMapper::toResponseDTO);
+    }
+
+    public PostResponseDTO updatePost(Long id, PostUpdateRequestDTO request){
+
+        logger.info("Updating post with id {}", id);
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Post", id)
+                );
+
+        postMapper.updateEntity(request, post);
+
+        if (request.categoryIds() != null) {
+            List<Category> categories = categoryRepository.findAllById(request
+                    .categoryIds());
+
+            if (categories.size() != request.categoryIds().size()) {
+                throw new ResourceNotFoundException("One or more category Ids not found");
+            }
+
+            post.setCategories(new HashSet<>(categories));
+        }
+
+        post.setUpdatedAt(OffsetDateTime.now());
+
+        var savedPost = postRepository.save(post);
+
+        return postMapper.toResponseDTO(savedPost);
     }
 }

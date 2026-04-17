@@ -4,7 +4,6 @@ import br.com.blog.api.dto.post.PostCreateRequestDTO;
 import br.com.blog.api.dto.post.PostResponseDTO;
 import br.com.blog.api.entities.Category;
 import br.com.blog.api.entities.Post;
-import br.com.blog.api.entities.User;
 import br.com.blog.api.exception.ResourceNotFoundException;
 import br.com.blog.api.mapper.PostMapper;
 import br.com.blog.api.repositories.CategoryRepository;
@@ -12,6 +11,8 @@ import br.com.blog.api.repositories.PostRepository;
 import br.com.blog.api.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -69,4 +70,25 @@ public class PostService {
         return postMapper.toResponseDTO(savedPost);
     }
 
+    public PostResponseDTO findById(Long id) {
+
+        logger.info("Finding post with ID: {}", id);
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Post", id)
+                );
+
+        return postMapper.toResponseDTO(post);
+    }
+
+    public Page<PostResponseDTO> findAll(Pageable pageable) {
+
+        logger.info("Findind all posts with pagination: page {}, size {}",
+                pageable.getPageNumber(), pageable.getPageSize());
+
+        Page<Post> page = postRepository.findAll(pageable);
+
+        return page.map(postMapper::toResponseDTO);
+    }
 }

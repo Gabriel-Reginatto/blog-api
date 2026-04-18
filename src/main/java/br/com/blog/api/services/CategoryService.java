@@ -9,6 +9,8 @@ import br.com.blog.api.mapper.CategoryMapper;
 import br.com.blog.api.repositories.CategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -50,4 +52,14 @@ public class CategoryService {
 
         return categoryMapper.toResponseDTO(category);
     }
+
+    public Page<CategoryResponseDTO> findAll(Pageable pageable) {
+
+        logger.info("Finding all categories with pagination: page {}, size {}", pageable.getPageNumber(), pageable.getPageSize());
+
+        Page<Category> page = categoryRepository.findAll(pageable);
+
+        return page.map(categoryMapper::toResponseDTO);
+    }
 }
+

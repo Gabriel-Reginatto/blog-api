@@ -61,5 +61,27 @@ public class CategoryService {
 
         return page.map(categoryMapper::toResponseDTO);
     }
+
+    public CategoryResponseDTO updateCategory(Long id, CategoryCreateRequestDTO request) {
+
+        logger.info("Updating category with name: {}", request.name());
+
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Category", "name", request.name())
+                );
+
+        if (request.name() != null && !request.name().equals(category.getName())) {
+            if (categoryRepository.existsByName(request.name())) {
+                throw new DuplicateResourceException("Category", "name", request.name());
+            }
+        }
+
+        categoryMapper.updateEntity(request, category);
+
+        var savedCategory = categoryRepository.save(category);
+
+        return categoryMapper.toResponseDTO(savedCategory);
+    }
 }
 

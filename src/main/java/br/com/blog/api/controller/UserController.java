@@ -1,13 +1,13 @@
 package br.com.blog.api.controller;
 
+import br.com.blog.api.dto.user.UserCreateRequestDTO;
 import br.com.blog.api.dto.user.UserResponseDTO;
 import br.com.blog.api.entities.User;
 import br.com.blog.api.services.UserService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -31,5 +31,11 @@ public class UserController {
         return ResponseEntity.ok(userService.findByUsername(username));
     }
 
+    @PostMapping
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserCreateRequestDTO request) {
+        UserResponseDTO createdUser = userService.createUser(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
 }
 

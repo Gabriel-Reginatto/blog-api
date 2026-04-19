@@ -2,7 +2,7 @@ package br.com.blog.api.controller;
 
 import br.com.blog.api.dto.post.PostCreateRequestDTO;
 import br.com.blog.api.dto.post.PostResponseDTO;
-import br.com.blog.api.entities.Post;
+import br.com.blog.api.dto.post.PostUpdateRequestDTO;
 import br.com.blog.api.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -41,6 +41,12 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable Long id, @Valid @RequestBody PostUpdateRequestDTO request) {
+        var updatedPost = postService.updatePost(id, request);
+
+        return ResponseEntity.ok().body(updatedPost);
+    }
 
 
 

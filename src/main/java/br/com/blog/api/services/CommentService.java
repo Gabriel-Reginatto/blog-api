@@ -82,4 +82,14 @@ public class CommentService {
 
         return comments.map(commentMapper::toResponseDTO);
     }
+
+    public void deleteComment(Long id) {
+
+        logger.info("Deleting comment with ID: {}", id);
+
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Comment", id));
+
+        commentRepository.delete(comment);
+    }
 }

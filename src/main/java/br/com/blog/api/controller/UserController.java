@@ -1,6 +1,7 @@
 package br.com.blog.api.controller;
 
 import br.com.blog.api.dto.user.UserResponseDTO;
+import br.com.blog.api.entities.User;
 import br.com.blog.api.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,11 @@ public class UserController {
         var user = userService.findById(id);
 
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("username/{username}")
+    public ResponseEntity<UserResponseDTO> findByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok(userService.findByUsername(username));
     }
 
 }

@@ -2,9 +2,12 @@ package br.com.blog.api.controller;
 
 import br.com.blog.api.dto.user.UserCreateRequestDTO;
 import br.com.blog.api.dto.user.UserResponseDTO;
-import br.com.blog.api.entities.User;
 import br.com.blog.api.services.UserService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +39,12 @@ public class UserController {
         UserResponseDTO createdUser = userService.createUser(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable) {
+        Page<UserResponseDTO> users = userService.findAll(pageable);
+        return ResponseEntity.ok(users);
     }
 }
 

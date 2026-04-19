@@ -30,29 +30,24 @@ public class PostController {
     @GetMapping
     public ResponseEntity<Page<PostResponseDTO>> findAll(Pageable pageable) {
         Page<PostResponseDTO> posts = postService.findAll(pageable);
-
         return ResponseEntity.ok(posts);
     }
 
     @PostMapping
     public ResponseEntity<PostResponseDTO> createPost(@Valid @RequestBody PostCreateRequestDTO request) {
         var post = postService.createPost(request);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PostResponseDTO> updatePost(@PathVariable Long id, @Valid @RequestBody PostUpdateRequestDTO request) {
         var updatedPost = postService.updatePost(id, request);
-
-        return ResponseEntity.ok().body(updatedPost);
+        return ResponseEntity.ok(updatedPost);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
         postService.delete(id);
-
         return ResponseEntity.noContent().build();
     }
-
 }

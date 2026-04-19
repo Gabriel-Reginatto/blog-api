@@ -2,6 +2,7 @@ package br.com.blog.api.controller;
 
 import br.com.blog.api.dto.user.UserCreateRequestDTO;
 import br.com.blog.api.dto.user.UserResponseDTO;
+import br.com.blog.api.dto.user.UserUpdateRequestDTO;
 import br.com.blog.api.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,13 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+
+    @GetMapping
+    public ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable) {
+        Page<UserResponseDTO> users = userService.findAll(pageable);
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
@@ -41,10 +49,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
-    @GetMapping
-    public ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable) {
-        Page<UserResponseDTO> users = userService.findAll(pageable);
-        return ResponseEntity.ok(users);
+    @PutMapping("update/{id}")
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequestDTO request) {
+        UserResponseDTO updatedUser = userService.updateUser(id, request);
+
+        return ResponseEntity.ok().body(updatedUser);
     }
 }
 

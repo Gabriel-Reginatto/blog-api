@@ -12,9 +12,12 @@ import br.com.blog.api.repositories.PostRepository;
 import br.com.blog.api.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -61,10 +64,22 @@ public class CommentService {
         var comment = commentMapper.toEntity(request);
         comment.setAuthor(user);
         comment.setPost(post);
-        comment.setCreatedAt(OffsetDateTime.now());
 
         var savedComment = commentRepository.save(comment);
 
         return commentMapper.toResponseDTO(savedComment);
+    }
+
+    public Page<CommentResponseDTO> findByPostId(Long postId, Pageable pageable) {
+
+        logger.info("Finding post with ID: {}", postId);
+
+        if (!postRepository.existsById(postId)) {
+            throw new ResourceNotFoundException("Post", postId);
+        }
+
+        Page<Comment> comments = commentRepository.findByPostId(postId, pageable);
+
+        return comments.map(commentMapper::toResponseDTO);
     }
 }

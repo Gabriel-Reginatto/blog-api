@@ -1,14 +1,15 @@
 package br.com.blog.api.controller;
 
+import br.com.blog.api.dto.post.PostCreateRequestDTO;
 import br.com.blog.api.dto.post.PostResponseDTO;
+import br.com.blog.api.entities.Post;
 import br.com.blog.api.services.PostService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/posts")
@@ -32,6 +33,14 @@ public class PostController {
 
         return ResponseEntity.ok(posts);
     }
+
+    @PostMapping
+    public ResponseEntity<PostResponseDTO> createPost(@Valid @RequestBody PostCreateRequestDTO request) {
+        var post = postService.createPost(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(post);
+    }
+
 
 
 

@@ -2,6 +2,8 @@ package br.com.blog.api.controller;
 
 import br.com.blog.api.dto.post.PostResponseDTO;
 import br.com.blog.api.services.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,12 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
+    @GetMapping
+    public ResponseEntity<Page<PostResponseDTO>> findAll(Pageable pageable) {
+        Page<PostResponseDTO> posts = postService.findAll(pageable);
+
+        return ResponseEntity.ok(posts);
+    }
 
 
 

@@ -1,12 +1,12 @@
 package br.com.blog.api.controller;
 
+import br.com.blog.api.dto.comment.CommentCreateRequestDTO;
 import br.com.blog.api.dto.comment.CommentResponseDTO;
 import br.com.blog.api.services.CommentService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/comments")
@@ -20,8 +20,15 @@ public class CommentController {
 
     @GetMapping("{id}")
     public ResponseEntity<CommentResponseDTO> findById(@PathVariable Long id) {
-        CommentResponseDTO comment = commentService.findByID(id);
+       var comment = commentService.findByID(id);
         return ResponseEntity.ok(comment);
+    }
+
+    @PostMapping
+    public ResponseEntity<CommentResponseDTO> createComment(@PathVariable Long postId, @Valid @RequestBody CommentCreateRequestDTO request) {
+        var post = commentService.createComment(postId, request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
 
 

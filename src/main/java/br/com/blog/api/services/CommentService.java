@@ -67,7 +67,7 @@ public class CommentService {
         return commentMapper.toResponseDTO(savedComment);
     }
 
-    public Page<CommentResponseDTO> findByPostId(Long postId, Pageable pageable) {
+    public Page<CommentResponseDTO> findCommentByPostId(Long postId, Pageable pageable) {
 
         logger.info("Finding post with ID: {}", postId);
 

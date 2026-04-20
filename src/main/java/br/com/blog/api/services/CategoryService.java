@@ -1,7 +1,7 @@
 package br.com.blog.api.services;
 
-import br.com.blog.api.dto.category.CategoryCreateRequestDTO;
-import br.com.blog.api.dto.category.CategoryResponseDTO;
+import br.com.blog.api.dto.category.request.CategoryCreateRequestDTO;
+import br.com.blog.api.dto.category.response.CategoryResponseDTO;
 import br.com.blog.api.model.Category;
 import br.com.blog.api.exception.DuplicateResourceException;
 import br.com.blog.api.exception.ResourceNotFoundException;

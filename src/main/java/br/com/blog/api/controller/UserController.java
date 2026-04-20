@@ -1,8 +1,8 @@
 package br.com.blog.api.controller;
 
-import br.com.blog.api.dto.user.UserCreateRequestDTO;
-import br.com.blog.api.dto.user.UserResponseDTO;
-import br.com.blog.api.dto.user.UserUpdateRequestDTO;
+import br.com.blog.api.dto.user.request.UserCreateRequestDTO;
+import br.com.blog.api.dto.user.response.UserResponseDTO;
+import br.com.blog.api.dto.user.request.UserUpdateRequestDTO;
 import br.com.blog.api.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
 package br.com.blog.api.mapper;
 
-import br.com.blog.api.dto.comment.CommentCreateRequestDTO;
-import br.com.blog.api.dto.comment.CommentResponseDTO;
+import br.com.blog.api.dto.comment.request.CommentCreateRequestDTO;
+import br.com.blog.api.dto.comment.response.CommentResponseDTO;
 import br.com.blog.api.model.Comment;
 import org.mapstruct.Mapper;
 

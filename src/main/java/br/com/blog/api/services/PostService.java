@@ -1,8 +1,8 @@
 package br.com.blog.api.services;
 
-import br.com.blog.api.dto.post.PostCreateRequestDTO;
-import br.com.blog.api.dto.post.PostResponseDTO;
-import br.com.blog.api.dto.post.PostUpdateRequestDTO;
+import br.com.blog.api.dto.post.request.PostCreateRequestDTO;
+import br.com.blog.api.dto.post.response.PostResponseDTO;
+import br.com.blog.api.dto.post.request.PostUpdateRequestDTO;
 import br.com.blog.api.model.Category;
 import br.com.blog.api.model.Post;
 import br.com.blog.api.exception.ResourceNotFoundException;

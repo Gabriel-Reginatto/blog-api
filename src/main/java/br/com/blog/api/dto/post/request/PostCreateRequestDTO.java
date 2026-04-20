@@ -1,4 +1,4 @@
-package br.com.blog.api.dto.post;
+package br.com.blog.api.dto.post.request;
 
 import br.com.blog.api.enums.PostStatus;
 import jakarta.validation.constraints.NotBlank;

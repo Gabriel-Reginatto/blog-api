@@ -1,4 +1,4 @@
-package br.com.blog.api.dto.user;
+package br.com.blog.api.dto.user.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package br.com.blog.api.dto.category;
+package br.com.blog.api.dto.category.response;
 
 import java.time.OffsetDateTime;
 

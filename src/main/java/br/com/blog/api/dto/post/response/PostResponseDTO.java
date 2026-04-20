@@ -1,4 +1,4 @@
-package br.com.blog.api.dto.post;
+package br.com.blog.api.dto.post.response;
 
 import br.com.blog.api.enums.PostStatus;
 

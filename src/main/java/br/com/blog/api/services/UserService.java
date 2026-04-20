@@ -3,7 +3,7 @@ package br.com.blog.api.services;
 import br.com.blog.api.dto.user.UserCreateRequestDTO;
 import br.com.blog.api.dto.user.UserResponseDTO;
 import br.com.blog.api.dto.user.UserUpdateRequestDTO;
-import br.com.blog.api.entities.User;
+import br.com.blog.api.model.User;
 import br.com.blog.api.exception.DuplicateResourceException;
 import br.com.blog.api.exception.ResourceNotFoundException;
 import br.com.blog.api.mapper.UserMapper;

@@ -2,7 +2,7 @@ package br.com.blog.api.mapper;
 
 import br.com.blog.api.dto.comment.CommentCreateRequestDTO;
 import br.com.blog.api.dto.comment.CommentResponseDTO;
-import br.com.blog.api.entities.Comment;
+import br.com.blog.api.model.Comment;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

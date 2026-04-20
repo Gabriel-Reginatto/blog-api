@@ -3,7 +3,7 @@ package br.com.blog.api.mapper;
 import br.com.blog.api.dto.post.PostCreateRequestDTO;
 import br.com.blog.api.dto.post.PostResponseDTO;
 import br.com.blog.api.dto.post.PostUpdateRequestDTO;
-import br.com.blog.api.entities.Post;
+import br.com.blog.api.model.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

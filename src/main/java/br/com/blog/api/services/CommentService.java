@@ -2,9 +2,9 @@ package br.com.blog.api.services;
 
 import br.com.blog.api.dto.comment.CommentCreateRequestDTO;
 import br.com.blog.api.dto.comment.CommentResponseDTO;
-import br.com.blog.api.entities.Comment;
-import br.com.blog.api.entities.Post;
-import br.com.blog.api.entities.User;
+import br.com.blog.api.model.Comment;
+import br.com.blog.api.model.Post;
+import br.com.blog.api.model.User;
 import br.com.blog.api.exception.ResourceNotFoundException;
 import br.com.blog.api.mapper.CommentMapper;
 import br.com.blog.api.repositories.CommentRepository;
@@ -15,9 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.OffsetDateTime;
-import java.util.List;
 
 @Service
 public class CommentService {

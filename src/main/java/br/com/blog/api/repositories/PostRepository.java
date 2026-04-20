@@ -1,6 +1,6 @@
 package br.com.blog.api.repositories;
 
-import br.com.blog.api.entities.Post;
+import br.com.blog.api.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

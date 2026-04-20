@@ -1,4 +1,4 @@
-package br.com.blog.api.entities;
+package br.com.blog.api.model;
 
 import jakarta.persistence.*;
 

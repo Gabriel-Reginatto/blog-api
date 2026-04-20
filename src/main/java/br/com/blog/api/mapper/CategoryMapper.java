@@ -2,7 +2,7 @@ package br.com.blog.api.mapper;
 
 import br.com.blog.api.dto.category.CategoryCreateRequestDTO;
 import br.com.blog.api.dto.category.CategoryResponseDTO;
-import br.com.blog.api.entities.Category;
+import br.com.blog.api.model.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

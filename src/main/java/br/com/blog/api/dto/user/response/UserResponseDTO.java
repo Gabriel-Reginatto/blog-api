@@ -1,8 +1,8 @@
 package br.com.blog.api.dto.user.response;
 
-import java.time.OffsetDateTime;
+import org.springframework.hateoas.RepresentationModel;
 
-public record UserResponseDTO(
+public record UserResponseDTO extends RepresentationModel<UserResponseDTO>(
 
         Long id,
         String username,

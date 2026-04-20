@@ -84,7 +84,7 @@ public class CategoryService {
         return categoryMapper.toResponseDTO(savedCategory);
     }
 
-    public void delete(Long id) {
+    public void deleteCategory(Long id) {
         var category = categoryRepository.findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Category", id)

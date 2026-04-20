@@ -4,6 +4,8 @@ import br.com.blog.api.dto.category.request.CategoryCreateRequestDTO;
 import br.com.blog.api.dto.category.response.CategoryResponseDTO;
 import br.com.blog.api.services.CategoryService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +32,12 @@ public class CategoryController {
         var category = categoryService.findById(id);
 
         return ResponseEntity.ok(category);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<CategoryResponseDTO>> findAll(Pageable pageable) {
+        var allCategories = categoryService.findAll(pageable);
+
+        return ResponseEntity.ok(allCategories);
     }
 }

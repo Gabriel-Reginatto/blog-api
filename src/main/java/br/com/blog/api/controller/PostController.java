@@ -1,5 +1,6 @@
 package br.com.blog.api.controller;
 
+import br.com.blog.api.assembler.PostModelAssembler;
 import br.com.blog.api.dto.post.request.PostCreateRequestDTO;
 import br.com.blog.api.dto.post.response.PostResponseDTO;
 import br.com.blog.api.dto.post.request.PostUpdateRequestDTO;
@@ -7,6 +8,9 @@ import br.com.blog.api.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,21 +20,26 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+    private final PostModelAssembler postAssembler;
+    private final PagedResourcesAssembler<PostResponseDTO> pagedAssembler;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, PostModelAssembler postAssembler, PagedResourcesAssembler<PostResponseDTO> pagedAssembler) {
         this.postService = postService;
+        this.postAssembler = postAssembler;
+        this.pagedAssembler = pagedAssembler;
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<PostResponseDTO>> findById(@PathVariable Long id) {
         PostResponseDTO post = postService.findById(id);
-        return ResponseEntity.ok(post);
+        return ResponseEntity.ok(postAssembler.toModel(post));
     }
 
     @GetMapping
-    public ResponseEntity<Page<PostResponseDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<PagedModel<EntityModel<PostResponseDTO>>> findAll(Pageable pageable) {
         Page<PostResponseDTO> posts = postService.findAll(pageable);
-        return ResponseEntity.ok(posts);
+
     }
 
     @PostMapping

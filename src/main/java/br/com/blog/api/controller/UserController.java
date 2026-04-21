@@ -42,18 +42,17 @@ public class UserController {
     public ResponseEntity<EntityModel<UserResponseDTO>> findById(@PathVariable Long id) {
         var user = userService.findById(id);
         return ResponseEntity.ok(userAssembler.toModel(user));
-
     }
 
     @GetMapping("username/{username}")
-    public ResponseEntity<UserResponseDTO> findByUsername(@PathVariable("username") String username) {
-        return ResponseEntity.ok(userService.findByUsername(username));
+    public ResponseEntity<EntityModel<UserResponseDTO>> findByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok(userAssembler.toModel(userService.findByUsername(username)));
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserCreateRequestDTO request) {
+    public ResponseEntity<EntityModel<UserResponseDTO>> createUser(@Valid @RequestBody UserCreateRequestDTO request) {
         UserResponseDTO createdUser = userService.createUser(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userAssembler.toModel(createdUser));
     }
 
     @PutMapping("/{id}")

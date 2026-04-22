@@ -1,11 +1,13 @@
 package br.com.blog.api.controller;
 
+import br.com.blog.api.assembler.CategoryModelAssembler;
 import br.com.blog.api.dto.category.request.CategoryCreateRequestDTO;
 import br.com.blog.api.dto.category.response.CategoryResponseDTO;
 import br.com.blog.api.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final CategoryModelAssembler categoryAssembler;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, CategoryModelAssembler categoryAssembler) {
         this.categoryService = categoryService;
+        this.categoryAssembler = categoryAssembler;
     }
 
     @PostMapping
@@ -27,9 +31,9 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<CategoryResponseDTO>> findById(@PathVariable Long id) {
         var category = categoryService.findById(id);
-        return ResponseEntity.ok(category);
+        return ResponseEntity.ok(categoryAssembler.toModel(category));
     }
 
     @GetMapping

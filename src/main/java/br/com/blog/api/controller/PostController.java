@@ -2,13 +2,13 @@ package br.com.blog.api.controller;
 
 import br.com.blog.api.assembler.PostModelAssembler;
 import br.com.blog.api.dto.post.request.PostCreateRequestDTO;
-import br.com.blog.api.dto.post.response.PostResponseDTO;
 import br.com.blog.api.dto.post.request.PostUpdateRequestDTO;
+import br.com.blog.api.dto.post.response.PostResponseDTO;
 import br.com.blog.api.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -23,35 +23,37 @@ public class PostController {
     private final PostModelAssembler postAssembler;
     private final PagedResourcesAssembler<PostResponseDTO> pagedAssembler;
 
-    public PostController(PostService postService, PostModelAssembler postAssembler, PagedResourcesAssembler<PostResponseDTO> pagedAssembler) {
+    public PostController(PostService postService,
+                          PostModelAssembler postAssembler,
+                          PagedResourcesAssembler<PostResponseDTO> pagedAssembler) {
         this.postService = postService;
         this.postAssembler = postAssembler;
         this.pagedAssembler = pagedAssembler;
-
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<PostResponseDTO>> findById(@PathVariable Long id) {
-        PostResponseDTO post = postService.findById(id);
-        return ResponseEntity.ok(postAssembler.toModel(post));
+        return ResponseEntity.ok(postAssembler.toModel(postService.findById(id)));
     }
 
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<PostResponseDTO>>> findAll(Pageable pageable) {
-        Page<PostResponseDTO> posts = postService.findAll(pageable);
+        Page<PostResponseDTO> page = postService.findAll(pageable);
+        PagedModel<EntityModel<PostResponseDTO>> pagedModel = pagedAssembler.toModel(page, postAssembler);
 
+        return ResponseEntity.ok(pagedModel);
     }
 
     @PostMapping
-    public ResponseEntity<PostResponseDTO> createPost(@Valid @RequestBody PostCreateRequestDTO request) {
-        var post = postService.createPost(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(post);
+    public ResponseEntity<EntityModel<PostResponseDTO>> createPost(@Valid @RequestBody PostCreateRequestDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(postAssembler.toModel(postService.createPost(request)));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable Long id, @Valid @RequestBody PostUpdateRequestDTO request) {
-        var updatedPost = postService.updatePost(id, request);
-        return ResponseEntity.ok(updatedPost);
+    public ResponseEntity<EntityModel<PostResponseDTO>> updatePost(@PathVariable Long id,
+                                                                   @Valid @RequestBody PostUpdateRequestDTO request) {
+        return ResponseEntity.ok(postAssembler.toModel(postService.updatePost(id, request)));
     }
 
     @DeleteMapping("/{id}")

@@ -91,7 +91,6 @@ public class PostService {
                 pageable.getPageNumber(), pageable.getPageSize());
 
         Page<Post> page = postRepository.findAll(pageable);
-
         return page.map(postMapper::toResponseDTO);
     }
 

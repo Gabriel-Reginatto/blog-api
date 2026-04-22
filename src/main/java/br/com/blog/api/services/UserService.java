@@ -1,6 +1,5 @@
 package br.com.blog.api.services;
 
-import br.com.blog.api.controller.UserController;
 import br.com.blog.api.dto.user.request.UserCreateRequestDTO;
 import br.com.blog.api.dto.user.request.UserUpdateRequestDTO;
 import br.com.blog.api.dto.user.response.UserResponseDTO;
@@ -16,9 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class UserService {

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,9 +43,9 @@ public class CommentController {
     }
 
     @GetMapping("/post/{postId}")
-    public ResponseEntity<Page<CommentResponseDTO>> findCommentsByPostId(@PathVariable Long postId, Pageable pageable) {
-        Page<CommentResponseDTO> comments = commentService.findCommentByPostId(postId, pageable);
-        return ResponseEntity.ok(comments);
+    public ResponseEntity<PagedModel<EntityModel<CommentResponseDTO>>> findCommentsByPostId(@PathVariable Long postId, Pageable pageable) {
+        Page<CommentResponseDTO> page = commentService.findCommentByPostId(postId, pageable);
+        return ResponseEntity.ok(pagedResourcesAssembler.toModel(page, commentAssembler));
     }
 
     @DeleteMapping("/{id}")

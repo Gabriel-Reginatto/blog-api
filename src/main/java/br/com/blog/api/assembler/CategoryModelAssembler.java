@@ -20,7 +20,7 @@ public class CategoryModelAssembler implements RepresentationModelAssembler<Cate
                 linkTo(methodOn(CategoryController.class).findAll(null)).withRel("allCategories").withType("GET"),
                 linkTo(methodOn(CategoryController.class).createCategory(null)).withRel("create").withType("POST"),
                 linkTo(methodOn(CategoryController.class).updateCategory(category.id(), null)).withRel("update").withType("PUT"),
-                linkTo(methodOn(CategoryController.class).deleteComment().id())).withRel("delete").withType("DELETE")
+                linkTo(methodOn(CategoryController.class).deleteCategory(category.id())).withRel("delete").withType("DELETE")
         );
     }
 }

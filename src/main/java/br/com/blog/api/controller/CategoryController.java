@@ -7,7 +7,9 @@ import br.com.blog.api.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +20,18 @@ public class CategoryController {
 
     private final CategoryService categoryService;
     private final CategoryModelAssembler categoryAssembler;
+    private final PagedResourcesAssembler<CategoryResponseDTO> pagedAssembler;
 
-    public CategoryController(CategoryService categoryService, CategoryModelAssembler categoryAssembler) {
+    public CategoryController(CategoryService categoryService, CategoryModelAssembler categoryAssembler, PagedResourcesAssembler<CategoryResponseDTO> pagedAssembler) {
         this.categoryService = categoryService;
         this.categoryAssembler = categoryAssembler;
+        this.pagedAssembler = pagedAssembler;
     }
 
     @PostMapping
-    public ResponseEntity<CategoryResponseDTO> createCategory(@Valid @RequestBody CategoryCreateRequestDTO request) {
+    public ResponseEntity<EntityModel<CategoryResponseDTO>> createCategory(@Valid @RequestBody CategoryCreateRequestDTO request) {
         var created = categoryService.createCategory(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryAssembler.toModel(created));
     }
 
     @GetMapping("/{id}")
@@ -37,15 +41,15 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<CategoryResponseDTO>> findAll(Pageable pageable) {
-        var allCategories = categoryService.findAll(pageable);
-        return ResponseEntity.ok(allCategories);
+    public ResponseEntity<PagedModel<EntityModel<CategoryResponseDTO>>> findAll(Pageable pageable) {
+        Page<CategoryResponseDTO> page = categoryService.findAll(pageable);
+        return ResponseEntity.ok(pagedAssembler.toModel(page, categoryAssembler));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponseDTO> updateCategory(@PathVariable Long id, @Valid @RequestBody CategoryCreateRequestDTO request) {
+    public ResponseEntity<EntityModel<CategoryResponseDTO>> updateCategory(@PathVariable Long id, @Valid @RequestBody CategoryCreateRequestDTO request) {
         var updatedCategory = categoryService.updateCategory(id, request);
-        return ResponseEntity.ok(updatedCategory);
+        return ResponseEntity.ok(categoryAssembler.toModel(updatedCategory));
     }
 
     @DeleteMapping("/{id}")

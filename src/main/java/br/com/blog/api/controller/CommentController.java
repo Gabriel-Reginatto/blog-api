@@ -35,9 +35,10 @@ public class CommentController {
     }
 
     @PostMapping("/post/{postId}")
-    public ResponseEntity<CommentResponseDTO> createComment(@PathVariable Long postId, @Valid @RequestBody CommentCreateRequestDTO request) {
+    public ResponseEntity<EntityModel<CommentResponseDTO>> createComment(@PathVariable Long postId, @Valid @RequestBody CommentCreateRequestDTO request) {
         var comment = commentService.createComment(postId, request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(comment);
+        EntityModel<CommentResponseDTO> commentResponse = commentAssembler.toModel(comment);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentResponse);
     }
 
     @GetMapping("/post/{postId}")

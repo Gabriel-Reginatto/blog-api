@@ -1,11 +1,14 @@
 package br.com.blog.api.controller;
 
+import br.com.blog.api.assembler.CommentModelAssembler;
 import br.com.blog.api.dto.comment.request.CommentCreateRequestDTO;
 import br.com.blog.api.dto.comment.response.CommentResponseDTO;
 import br.com.blog.api.services.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +18,20 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
 
     private final CommentService commentService;
+    private final CommentModelAssembler commentAssembler;
+    private final PagedResourcesAssembler<CommentResponseDTO> pagedResourcesAssembler;
 
-    public CommentController(CommentService commentService) {
+    public CommentController(CommentService commentService, CommentModelAssembler commentAssembler, PagedResourcesAssembler<CommentResponseDTO> pagedResourcesAssembler) {
         this.commentService = commentService;
+        this.commentAssembler = commentAssembler;
+        this.pagedResourcesAssembler = pagedResourcesAssembler;
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CommentResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<CommentResponseDTO>> findById(@PathVariable Long id) {
         var comment = commentService.findByID(id);
-        return ResponseEntity.ok(comment);
+        return ResponseEntity.ok(commentAssembler.toModel(comment));
     }
 
     @PostMapping("/post/{postId}")

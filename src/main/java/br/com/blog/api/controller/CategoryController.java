@@ -20,12 +20,12 @@ public class CategoryController {
 
     private final CategoryService categoryService;
     private final CategoryModelAssembler categoryAssembler;
-    private final PagedResourcesAssembler<CategoryResponseDTO> pagedAssembler;
+    private final PagedResourcesAssembler<CategoryResponseDTO> pagedResourcesAssembler;
 
-    public CategoryController(CategoryService categoryService, CategoryModelAssembler categoryAssembler, PagedResourcesAssembler<CategoryResponseDTO> pagedAssembler) {
+    public CategoryController(CategoryService categoryService, CategoryModelAssembler categoryAssembler, PagedResourcesAssembler<CategoryResponseDTO> pagedResourcesAssembler) {
         this.categoryService = categoryService;
         this.categoryAssembler = categoryAssembler;
-        this.pagedAssembler = pagedAssembler;
+        this.pagedResourcesAssembler = pagedResourcesAssembler;
     }
 
     @PostMapping
@@ -43,7 +43,7 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<PagedModel<EntityModel<CategoryResponseDTO>>> findAll(Pageable pageable) {
         Page<CategoryResponseDTO> page = categoryService.findAll(pageable);
-        return ResponseEntity.ok(pagedAssembler.toModel(page, categoryAssembler));
+        return ResponseEntity.ok(pagedResourcesAssembler.toModel(page, categoryAssembler));
     }
 
     @PutMapping("/{id}")

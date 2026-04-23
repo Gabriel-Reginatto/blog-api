@@ -1,4 +1,4 @@
 package br.com.blog.api.infrastructure.annotation;
 
-public class ApiResponseGet {
+public final class ApiResponseConstants {
 }

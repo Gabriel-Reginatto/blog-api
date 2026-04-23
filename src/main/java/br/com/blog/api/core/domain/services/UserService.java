@@ -1,0 +1,126 @@
+package br.com.blog.api.core.domain.services;
+
+import br.com.blog.api.api.dto.user.request.UserCreateRequestDTO;
+import br.com.blog.api.api.dto.user.request.UserUpdateRequestDTO;
+import br.com.blog.api.api.dto.user.response.UserResponseDTO;
+import br.com.blog.api.infrastructure.exception.DuplicateResourceException;
+import br.com.blog.api.infrastructure.exception.ResourceNotFoundException;
+import br.com.blog.api.core.domain.mapper.UserMapper;
+import br.com.blog.api.core.domain.User;
+import br.com.blog.api.core.domain.repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
+
+@Service
+public class UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
+
+    public UserResponseDTO findById(Long id) {
+
+        logger.info("Finding user with ID: {}", id);
+
+        User entity =  userRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("user", id)
+                );
+
+        return userMapper.toResponseDTO(entity);
+    }
+
+    public UserResponseDTO findByUsername(String username) {
+
+        logger.info("Finding user by username: {}", username);
+
+        var entity = userRepository.findByUsername(username)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("user", "username", username)
+                );
+
+        return userMapper.toResponseDTO(entity);
+    }
+
+    public UserResponseDTO createUser(UserCreateRequestDTO request) {
+
+        logger.info("Creating a user with username: {}", request.username());
+
+        if (userRepository.existsByEmail(request.email())) {
+            throw new DuplicateResourceException("User", "email", request.email());
+        }
+
+        if (userRepository.existsByUsername(request.username())) {
+            throw new DuplicateResourceException("User", "username", request.username());
+        }
+
+        User entity = userMapper.toEntity(request);
+        entity.setCreatedAt(OffsetDateTime.now());
+        User savedEntity = userRepository.save(entity);
+
+        return userMapper.toResponseDTO(savedEntity);
+    }
+
+    public Page<UserResponseDTO> findAll(Pageable pageable) {
+
+        logger.info("Finding all users with pagination: page {}, size {}", pageable.getPageNumber(), pageable.getPageSize());
+
+        Page<User> page = userRepository.findAll(pageable);
+
+        return page.map(userMapper::toResponseDTO);
+    }
+
+    public UserResponseDTO updateUser(Long id, UserUpdateRequestDTO request) {
+
+        logger.info("updating a user with ID: {}", id);
+
+        User user = userRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("User", id)
+                );
+
+         //VALIDATE DUPLICATE EMAIL
+        if (request.email() != null && !request.email().equalsIgnoreCase(user.getEmail())) {
+            if (userRepository.existsByEmail(request.email())) {
+                throw new DuplicateResourceException("User", "email", request.email());
+            }
+        }
+
+         //VALIDATE DUPLICATE USERNAME
+        if (request.username() != null && !request.username().equalsIgnoreCase(user.getUsername())) {
+            if (userRepository.existsByUsername(request.username())) {
+                throw new DuplicateResourceException("User", "username", request.username());
+            }
+        }
+
+        userMapper.updateEntity(request, user);
+        user.setUpdatedAt(OffsetDateTime.now());
+
+        User savedUser = userRepository.save(user);
+
+        return userMapper.toResponseDTO(savedUser);
+    }
+
+    public void deleteUser(Long id) {
+
+        logger.info("Deleting user with ID: {}", id);
+
+        var user = userRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("User", id)
+                );
+
+
+        userRepository.delete(user);
+    }
+}

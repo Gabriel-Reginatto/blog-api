@@ -44,6 +44,7 @@ public interface UserControllerDoc {
     )
     ResponseEntity<EntityModel<UserResponseDTO>> findById(@PathVariable Long id);
 
+
     @SuppressWarnings("unused")
     @Operation(
             summary = "Find user by your username",
@@ -65,6 +66,7 @@ public interface UserControllerDoc {
             responses = {
                     @ApiResponse(responseCode = "201", description = "Created", content = @Content(schema = @Schema(implementation = UserResponseDTO.class))),
                     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
+                    @ApiResponse(responseCode = "409", description = "Username or email already exists", content = @Content),
                     @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content),
             }
     )

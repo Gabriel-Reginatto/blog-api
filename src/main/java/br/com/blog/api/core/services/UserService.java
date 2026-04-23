@@ -1,13 +1,13 @@
-package br.com.blog.api.core.domain.services;
+package br.com.blog.api.core.services;
 
 import br.com.blog.api.api.dto.user.request.UserCreateRequestDTO;
 import br.com.blog.api.api.dto.user.request.UserUpdateRequestDTO;
 import br.com.blog.api.api.dto.user.response.UserResponseDTO;
 import br.com.blog.api.infrastructure.exception.DuplicateResourceException;
 import br.com.blog.api.infrastructure.exception.ResourceNotFoundException;
-import br.com.blog.api.core.domain.mapper.UserMapper;
+import br.com.blog.api.core.mapper.UserMapper;
 import br.com.blog.api.core.domain.User;
-import br.com.blog.api.core.domain.repositories.UserRepository;
+import br.com.blog.api.core.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

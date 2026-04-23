@@ -3,7 +3,7 @@ package br.com.blog.api.api.controller;
 import br.com.blog.api.api.assembler.CategoryModelAssembler;
 import br.com.blog.api.api.dto.category.request.CategoryCreateRequestDTO;
 import br.com.blog.api.api.dto.category.response.CategoryResponseDTO;
-import br.com.blog.api.core.domain.services.CategoryService;
+import br.com.blog.api.core.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

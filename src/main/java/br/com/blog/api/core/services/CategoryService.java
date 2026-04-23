@@ -1,12 +1,12 @@
-package br.com.blog.api.core.domain.services;
+package br.com.blog.api.core.services;
 
 import br.com.blog.api.api.dto.category.request.CategoryCreateRequestDTO;
 import br.com.blog.api.api.dto.category.response.CategoryResponseDTO;
 import br.com.blog.api.core.domain.Category;
 import br.com.blog.api.infrastructure.exception.DuplicateResourceException;
 import br.com.blog.api.infrastructure.exception.ResourceNotFoundException;
-import br.com.blog.api.core.domain.mapper.CategoryMapper;
-import br.com.blog.api.core.domain.repositories.CategoryRepository;
+import br.com.blog.api.core.mapper.CategoryMapper;
+import br.com.blog.api.core.repositories.CategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

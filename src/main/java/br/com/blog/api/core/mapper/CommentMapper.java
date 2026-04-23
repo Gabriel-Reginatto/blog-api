@@ -1,4 +1,4 @@
-package br.com.blog.api.core.domain.mapper;
+package br.com.blog.api.core.mapper;
 
 import br.com.blog.api.api.dto.comment.request.CommentCreateRequestDTO;
 import br.com.blog.api.api.dto.comment.response.CommentResponseDTO;

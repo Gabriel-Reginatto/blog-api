@@ -3,7 +3,7 @@ package br.com.blog.api.api.controller;
 import br.com.blog.api.api.assembler.CommentModelAssembler;
 import br.com.blog.api.api.dto.comment.request.CommentCreateRequestDTO;
 import br.com.blog.api.api.dto.comment.response.CommentResponseDTO;
-import br.com.blog.api.core.domain.services.CommentService;
+import br.com.blog.api.core.services.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

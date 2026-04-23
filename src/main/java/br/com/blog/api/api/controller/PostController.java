@@ -4,7 +4,7 @@ import br.com.blog.api.api.assembler.PostModelAssembler;
 import br.com.blog.api.api.dto.post.request.PostCreateRequestDTO;
 import br.com.blog.api.api.dto.post.request.PostUpdateRequestDTO;
 import br.com.blog.api.api.dto.post.response.PostResponseDTO;
-import br.com.blog.api.core.domain.services.PostService;
+import br.com.blog.api.core.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

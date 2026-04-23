@@ -4,7 +4,7 @@ import br.com.blog.api.api.assembler.UserModelAssembler;
 import br.com.blog.api.api.dto.user.request.UserCreateRequestDTO;
 import br.com.blog.api.api.dto.user.request.UserUpdateRequestDTO;
 import br.com.blog.api.api.dto.user.response.UserResponseDTO;
-import br.com.blog.api.core.domain.services.UserService;
+import br.com.blog.api.core.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

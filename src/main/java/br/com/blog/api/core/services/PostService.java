@@ -1,4 +1,4 @@
-package br.com.blog.api.core.domain.services;
+package br.com.blog.api.core.services;
 
 import br.com.blog.api.api.dto.post.request.PostCreateRequestDTO;
 import br.com.blog.api.api.dto.post.response.PostResponseDTO;
@@ -6,10 +6,10 @@ import br.com.blog.api.api.dto.post.request.PostUpdateRequestDTO;
 import br.com.blog.api.core.domain.Category;
 import br.com.blog.api.core.domain.Post;
 import br.com.blog.api.infrastructure.exception.ResourceNotFoundException;
-import br.com.blog.api.core.domain.mapper.PostMapper;
-import br.com.blog.api.core.domain.repositories.CategoryRepository;
-import br.com.blog.api.core.domain.repositories.PostRepository;
-import br.com.blog.api.core.domain.repositories.UserRepository;
+import br.com.blog.api.core.mapper.PostMapper;
+import br.com.blog.api.core.repositories.CategoryRepository;
+import br.com.blog.api.core.repositories.PostRepository;
+import br.com.blog.api.core.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

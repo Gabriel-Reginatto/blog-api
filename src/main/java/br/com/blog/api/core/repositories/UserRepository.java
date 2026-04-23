@@ -1,4 +1,4 @@
-package br.com.blog.api.core.domain.repositories;
+package br.com.blog.api.core.repositories;
 
 import br.com.blog.api.core.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

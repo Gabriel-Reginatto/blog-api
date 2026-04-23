@@ -1,4 +1,4 @@
-package br.com.blog.api.core.domain.services;
+package br.com.blog.api.core.services;
 
 import br.com.blog.api.api.dto.comment.request.CommentCreateRequestDTO;
 import br.com.blog.api.api.dto.comment.response.CommentResponseDTO;
@@ -6,10 +6,10 @@ import br.com.blog.api.core.domain.Comment;
 import br.com.blog.api.core.domain.Post;
 import br.com.blog.api.core.domain.User;
 import br.com.blog.api.infrastructure.exception.ResourceNotFoundException;
-import br.com.blog.api.core.domain.mapper.CommentMapper;
-import br.com.blog.api.core.domain.repositories.CommentRepository;
-import br.com.blog.api.core.domain.repositories.PostRepository;
-import br.com.blog.api.core.domain.repositories.UserRepository;
+import br.com.blog.api.core.mapper.CommentMapper;
+import br.com.blog.api.core.repositories.CommentRepository;
+import br.com.blog.api.core.repositories.PostRepository;
+import br.com.blog.api.core.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

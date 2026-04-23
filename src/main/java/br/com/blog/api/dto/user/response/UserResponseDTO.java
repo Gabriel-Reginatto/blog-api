@@ -1,7 +1,10 @@
 package br.com.blog.api.dto.user.response;
 
+import org.springframework.hateoas.server.core.Relation;
+
 import java.time.OffsetDateTime;
 
+@Relation(collectionRelation = "User")
 public record UserResponseDTO(
 
         Long id,

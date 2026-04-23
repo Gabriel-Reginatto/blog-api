@@ -16,11 +16,10 @@ public class PostModelAssembler implements RepresentationModelAssembler<PostResp
     public EntityModel<PostResponseDTO> toModel(PostResponseDTO post) {
 
         return EntityModel.of(post,
-                linkTo(methodOn(PostController.class).findById(post.id())).withSelfRel().withType("GET"),
-                linkTo(methodOn(PostController.class).findAll(null)).withRel("Find all").withType("GET"),
-                linkTo(methodOn(PostController.class).createPost(null)).withRel("Create").withType("POST"),
-                linkTo(methodOn(PostController.class).updatePost(post.id(), null)).withRel("Update").withType("PUT"),
-                linkTo(methodOn(PostController.class)).withRel("Delete").withType("DELETE")
+                linkTo(methodOn(PostController.class).findAll(null)).withRel("allPosts"),
+                linkTo(methodOn(PostController.class).createPost(null)).withRel("create"),
+                linkTo(methodOn(PostController.class).updatePost(post.id(), null)).withRel("update"),
+                linkTo(methodOn(PostController.class).deletePost(post.id())).withRel("delete")
         );
     }
 }

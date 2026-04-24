@@ -1,33 +1,56 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Banco de dados
+.env
+.env.local
+.env.production
+.env.*.local
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IDE
+.idea/
 *.iml
+*.iws
 *.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+.mvn/
+.m2/
+.classpath
+.project
+.settings/
 .vscode/
+.svn/
+
+# Logs
+logs/
+*.log
+*.log.gz
+
+# Build
+target/
+out/
+build/
+*.class
+
+# Spring Boot
+application-local.yml
+application-dev.yml
+application-prod.yml
+application-*.properties
+
+# Banco de dados local
+*.db
+*.h2.db
+*.lock
+*.sql
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.swp
+*~
+
+# Testes
+test-output/
+*.pid

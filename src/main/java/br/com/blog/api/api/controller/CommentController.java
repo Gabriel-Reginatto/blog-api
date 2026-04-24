@@ -1,6 +1,7 @@
 package br.com.blog.api.api.controller;
 
 import br.com.blog.api.api.assembler.CommentModelAssembler;
+import br.com.blog.api.api.docs.CommentControllerDoc;
 import br.com.blog.api.api.dto.comment.request.CommentCreateRequestDTO;
 import br.com.blog.api.api.dto.comment.response.CommentResponseDTO;
 import br.com.blog.api.core.services.CommentService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/comments")
-public class CommentController {
+public class CommentController implements CommentControllerDoc {
 
     private final CommentService commentService;
     private final CommentModelAssembler commentAssembler;
@@ -46,6 +47,10 @@ public class CommentController {
     public ResponseEntity<PagedModel<EntityModel<CommentResponseDTO>>> findCommentsByPostId(@PathVariable Long postId, Pageable pageable) {
         Page<CommentResponseDTO> page = commentService.findCommentByPostId(postId, pageable);
         return ResponseEntity.ok(pagedResourcesAssembler.toModel(page, commentAssembler));
+        // Pode colocar isso em qualquer lugar temporariamente, ex: no método main ou num Controller
+        String url = System.getenv("DB_URL");
+        System.out.println("DB_URL via System.getenv: " + url);
+
     }
 
     @DeleteMapping("/{id}")

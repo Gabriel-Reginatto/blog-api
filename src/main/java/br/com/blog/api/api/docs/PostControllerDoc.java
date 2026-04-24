@@ -36,7 +36,7 @@ public interface PostControllerDoc {
 
     @Operation(
             summary = "Create a post",
-            description = "Creates a post"
+            description = "Creates a new post and returns it with HATEOAS links"
     )
     @ApiResponsePost
     ResponseEntity<EntityModel<PostResponseDTO>> createPost(@Valid @RequestBody PostCreateRequestDTO request);

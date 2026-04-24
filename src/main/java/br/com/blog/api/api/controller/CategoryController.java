@@ -1,6 +1,7 @@
 package br.com.blog.api.api.controller;
 
 import br.com.blog.api.api.assembler.CategoryModelAssembler;
+import br.com.blog.api.api.docs.CategoryControllerDoc;
 import br.com.blog.api.api.dto.category.request.CategoryCreateRequestDTO;
 import br.com.blog.api.api.dto.category.response.CategoryResponseDTO;
 import br.com.blog.api.core.services.CategoryService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/categories")
-public class CategoryController {
+public class CategoryController implements CategoryControllerDoc {
 
     private final CategoryService categoryService;
     private final CategoryModelAssembler categoryAssembler;

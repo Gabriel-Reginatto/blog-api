@@ -47,10 +47,6 @@ public class CommentController implements CommentControllerDoc {
     public ResponseEntity<PagedModel<EntityModel<CommentResponseDTO>>> findCommentsByPostId(@PathVariable Long postId, Pageable pageable) {
         Page<CommentResponseDTO> page = commentService.findCommentByPostId(postId, pageable);
         return ResponseEntity.ok(pagedResourcesAssembler.toModel(page, commentAssembler));
-        // Pode colocar isso em qualquer lugar temporariamente, ex: no método main ou num Controller
-        String url = System.getenv("DB_URL");
-        System.out.println("DB_URL via System.getenv: " + url);
-
     }
 
     @DeleteMapping("/{id}")

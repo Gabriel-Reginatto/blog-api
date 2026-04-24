@@ -1,6 +1,7 @@
 package br.com.blog.api.api.controller;
 
 import br.com.blog.api.api.assembler.PostModelAssembler;
+import br.com.blog.api.api.docs.PostControllerDoc;
 import br.com.blog.api.api.dto.post.request.PostCreateRequestDTO;
 import br.com.blog.api.api.dto.post.request.PostUpdateRequestDTO;
 import br.com.blog.api.api.dto.post.response.PostResponseDTO;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/posts")
-public class PostController {
+public class PostController implements PostControllerDoc {
 
     private final PostService postService;
     private final PostModelAssembler postAssembler;
@@ -32,6 +33,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
+    @Override
     public ResponseEntity<EntityModel<PostResponseDTO>> findById(@PathVariable Long id) {
         return ResponseEntity.ok(postAssembler.toModel(postService.findById(id)));
     }

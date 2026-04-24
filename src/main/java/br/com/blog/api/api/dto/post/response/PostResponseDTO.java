@@ -8,7 +8,6 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @Relation(collectionRelation = "Posts")
-@JsonPropertyOrder({ "id", "title", "content", "status", "authorUsername", "categoryNames", "commentCount", "createdAt", "updatedAt", "_links" })
 public record PostResponseDTO(
 
         Long id,

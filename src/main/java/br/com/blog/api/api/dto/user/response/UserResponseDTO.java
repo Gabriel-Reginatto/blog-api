@@ -4,7 +4,7 @@ import org.springframework.hateoas.server.core.Relation;
 
 import java.time.OffsetDateTime;
 
-@Relation(collectionRelation = "User")
+@Relation(collectionRelation = "users", itemRelation = "user")
 public record UserResponseDTO(
 
         Long id,

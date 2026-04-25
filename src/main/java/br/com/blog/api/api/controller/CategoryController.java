@@ -7,6 +7,7 @@ import br.com.blog.api.api.dto.category.response.CategoryResponseDTO;
 import br.com.blog.api.core.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
@@ -42,9 +43,11 @@ public class CategoryController implements CategoryControllerDoc {
     }
 
     @GetMapping
-    public ResponseEntity<PagedModel<EntityModel<CategoryResponseDTO>>> findAll(Pageable pageable) {
-        Page<CategoryResponseDTO> page = categoryService.findAll(pageable);
-        return ResponseEntity.ok(pagedResourcesAssembler.toModel(page, categoryAssembler));
+    public ResponseEntity<PagedModel<EntityModel<CategoryResponseDTO>>> findAll(@RequestParam Integer page, @RequestParam Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CategoryResponseDTO> result = categoryService.findAll(pageable);
+
+        return ResponseEntity.ok(pagedResourcesAssembler.toModel(result, categoryAssembler));
     }
 
     @PutMapping("/{id}")

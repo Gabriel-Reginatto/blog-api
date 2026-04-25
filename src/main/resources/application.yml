@@ -15,11 +15,11 @@ jpa:
     show-sql: false
     open-in-view: false
 
-jackson:
+Jackson:
     deserialization:
       fail-on-unknown-properties: true
 
-springdoc:
+spring-doc:
   api-docs:
     enabled: true
   swagger-ui:

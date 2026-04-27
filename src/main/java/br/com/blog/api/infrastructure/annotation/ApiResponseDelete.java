@@ -13,7 +13,7 @@ import static br.com.blog.api.infrastructure.annotation.ApiResponseConstants.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses(value = {
-        @ApiResponse(responseCode = NO_CONTENT, description = DESC_NOT_FOUND),
+        @ApiResponse(responseCode = NO_CONTENT, description = DESC_NO_CONTENT),
         @ApiResponse(responseCode = BAD_REQUEST, description = DESC_BAD_REQUEST),
         @ApiResponse(responseCode = NOT_FOUND, description = DESC_NOT_FOUND),
         @ApiResponse(responseCode = INTERNAL_ERROR, description = DESC_INTERNAL_ERROR)

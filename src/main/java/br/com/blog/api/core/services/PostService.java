@@ -106,8 +106,7 @@ public class PostService {
         postMapper.updateEntity(request, post);
 
         if (request.categoryIds() != null) {
-            List<Category> categories = categoryRepository.findAllById(request
-                    .categoryIds());
+            List<Category> categories = categoryRepository.findAllById(request.categoryIds());
 
             if (categories.size() != request.categoryIds().size()) {
                 throw new ResourceNotFoundException("One or more category Ids not found");

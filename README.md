@@ -58,6 +58,29 @@ As credenciais do banco de dados são protegidas com variáveis de ambiente, sem
 
 1. Clone o repositório:
 
-```bash
 git clone https://github.com/seuusuario/blog-api.git
 cd blog-api
+
+2. Configure as variáveis de ambiente:
+
+DB_URL=jdbc:postgresql://localhost:5432/blog-api
+DB_USERNAME=postgres
+DB_PASSWORD=sua_senha
+
+3. Execute a aplicação:
+
+./mvnw spring-boot:run
+
+4. Acesse a documentação Swagger:
+
+http://localhost:8080/swagger-ui.html
+
+Em andamento
+Autenticação e autorização com Spring Security + JWT
+
+Testes automatizados (unitários e de integração)
+
+Deploy em ambiente de produção
+
+Licença
+Este projeto está sob a licença Apache 2.0. Consulte o arquivo LICENSE para mais informações.

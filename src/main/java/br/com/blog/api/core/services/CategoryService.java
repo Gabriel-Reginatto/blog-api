@@ -78,7 +78,6 @@ public class CategoryService {
         }
 
         categoryMapper.updateEntity(request, category);
-
         var savedCategory = categoryRepository.save(category);
 
         return categoryMapper.toResponseDTO(savedCategory);

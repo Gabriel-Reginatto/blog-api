@@ -1,9 +1,6 @@
 package br.com.blog.api.infrastructure.exception.handler;
 
-import br.com.blog.api.infrastructure.exception.BusinessException;
-import br.com.blog.api.infrastructure.exception.DuplicateResourceException;
-import br.com.blog.api.infrastructure.exception.ErrorResponse;
-import br.com.blog.api.infrastructure.exception.ResourceNotFoundException;
+import br.com.blog.api.infrastructure.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -52,6 +49,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public final ResponseEntity<ErrorResponse> handleInvalidJwtAuthenticationException( InvalidJwtAuthenticationException ex) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.UNAUTHORIZED.value(),
+                "Unauthorized",
+                ex.getMessage(),
+                OffsetDateTime.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
 
     @ExceptionHandler(Exception.class)

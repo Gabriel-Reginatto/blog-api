@@ -3,6 +3,7 @@ package br.com.blog.api.infrastructure.security;
 import br.com.blog.api.api.dto.token.TokenDTO;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,19 @@ public class JwtTokenProvider {
                 .sign(algorithm);
     }
 
+    public String getUsernameFromToken(String token) {
+        return JWT.decode(token).getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            JWT.require(algorithm)
+                    .build()
+                    .verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+    }
 
 }

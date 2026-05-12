@@ -11,7 +11,7 @@ public record TokenDTO(
         String refreshToken,
 
         @JsonProperty("token_type")
-        String tokenType,
+        String type,
 
         @JsonProperty("expires_in")
         Long expiresIn

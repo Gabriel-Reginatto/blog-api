@@ -12,9 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static br.com.blog.api.infrastructure.security.SecurityConstants.PUBLIC_URLS;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
@@ -22,7 +25,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
-                        authorize.anyRequest().permitAll())
+                        authorize.dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+                                .requestMatchers(PUBLIC_URLS).permitAll()
+                                .anyRequest().authenticated())
                 .build();
     }
 

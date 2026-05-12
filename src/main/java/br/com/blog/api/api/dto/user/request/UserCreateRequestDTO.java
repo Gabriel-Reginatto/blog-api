@@ -22,5 +22,9 @@ public record UserCreateRequestDTO(
         @Size(min = 3, max = 100, message = "last_name must be between 3 and 180 characters")
         String lastName,
 
+        @NotBlank(message = "password is required")
+        @Size(min = 6, max = 100, message = "password must be between 6 and 100 characters")
+        String password,
+
         String bio
 ){}

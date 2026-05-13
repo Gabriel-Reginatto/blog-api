@@ -1,6 +1,8 @@
 package br.com.blog.api.api.controller;
 
+import br.com.blog.api.api.dto.auth.LoginRequestDTO;
 import br.com.blog.api.api.dto.auth.RegisterResponseDTO;
+import br.com.blog.api.api.dto.token.TokenDTO;
 import br.com.blog.api.api.dto.user.request.UserCreateRequestDTO;
 import br.com.blog.api.core.services.AuthService;
 import jakarta.validation.Valid;
@@ -27,6 +29,10 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-
+    @PostMapping("/login")
+    public ResponseEntity<TokenDTO> login(@Valid @RequestBody LoginRequestDTO request) {
+        var login = authService.login(request);
+        return ResponseEntity.ok(login);
+    }
 
 }

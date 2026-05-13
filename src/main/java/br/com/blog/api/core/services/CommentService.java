@@ -89,4 +89,10 @@ public class CommentService {
 
         commentRepository.delete(comment);
     }
+
+    public boolean isAuthor(Long commentId, String username) {
+        return commentRepository.findById(commentId)
+                .map(comment -> comment.getAuthor().getUsername().equalsIgnoreCase(username))
+                .orElse(false);
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -53,12 +54,14 @@ public class PostController implements PostControllerDoc {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or @postService.isAuthor(#id, authentication.name)")
     public ResponseEntity<EntityModel<PostResponseDTO>> updatePost(@PathVariable Long id,
                                                                    @Valid @RequestBody PostUpdateRequestDTO request) {
         return ResponseEntity.ok(postAssembler.toModel(postService.updatePost(id, request)));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or @postService.isAuthor(#id, authentication.name)")
     public ResponseEntity<Void> deletePost(@PathVariable Long id) {
         postService.delete(id);
         return ResponseEntity.noContent().build();

@@ -65,6 +65,7 @@ public class AuthService {
         user.setUsername(request.username());
         user.setPassword(encryptedPassword);
         user.setBio(request.bio());
+        user.setEmail(request.email());
         user.setRole(UserRole.USER);
         user.setCreatedAt(OffsetDateTime.now());
 

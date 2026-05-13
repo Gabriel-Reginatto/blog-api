@@ -133,4 +133,11 @@ public class PostService {
 
         postRepository.delete(post);
     }
+
+    public boolean isAuthor(Long postId, String username) {
+        return postRepository.findById(postId)
+                .map(post -> post.getAuthor().getUsername().equalsIgnoreCase(username))
+                .orElse(false);
+    }
+
 }

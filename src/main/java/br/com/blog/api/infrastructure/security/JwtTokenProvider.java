@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -84,6 +85,15 @@ public class JwtTokenProvider {
         } catch (JWTVerificationException e) {
             return false;
         }
+    }
+
+    public String resolveToken(HttpServletRequest request) {
+        String authHeader = request.getHeader(SecurityConstants.AUTHORIZATION_HEADER);
+
+        if (authHeader != null && authHeader.startsWith(SecurityConstants.BEARER_PREFIX)) {
+            return authHeader.substring(SecurityConstants.BEARER_PREFIX.length()).trim();
+        }
+        return null;
     }
 
 }

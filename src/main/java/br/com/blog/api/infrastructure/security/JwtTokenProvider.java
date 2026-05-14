@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,6 +20,8 @@ import java.util.List;
 @Service
 public class JwtTokenProvider {
 
+    private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
+
     @Value("${jwt.secret}")
     private String secretKey;
 
@@ -28,11 +32,23 @@ public class JwtTokenProvider {
 
     @PostConstruct
     protected void init() {
+        log.info("Initializing JwtTokenProvider");
+
+        log.debug("JWT expiration configured: {}ms ({} minutes)",
+                validityMilliseconds, validityMilliseconds / 6000);
+
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
         this.algorithm = Algorithm.HMAC256(secretKey.getBytes());
+
+        log.debug("Secret key encoded successfully");
+        log.info("JwtTokenProvider initialized successfully");
     }
 
     public TokenDTO createAccessToken(String username, List<String> roles) {
+
+        log.info("Creating access token for user: {}", username);
+        log.debug("User roles: {}", roles);
+
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityMilliseconds);
 
@@ -51,10 +67,17 @@ public class JwtTokenProvider {
 
         String refreshToken = refreshToken(username, roles);
 
+        log.debug("Access token created, expires in {}", validity);
+        log.debug("Refresh token created");
+        log.info("Tokens generated successfully for user: {}", username);
+
         return new TokenDTO(accessToken, refreshToken, "Bearer", validityMilliseconds);
     }
 
     private String refreshToken(String username, List<String> roles) {
+
+        log.debug("Creating refresh token for user: {}", username);
+
         Date now = new Date();
         Date validity = new Date(now.getTime() + (validityMilliseconds * 3));
 
@@ -70,7 +93,9 @@ public class JwtTokenProvider {
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .sign(algorithm);
+
     }
+
 
     public String getUsernameFromToken(String token) {
         return JWT.decode(token).getSubject();

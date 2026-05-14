@@ -2,6 +2,8 @@ package br.com.blog.api.infrastructure.config;
 
 import br.com.blog.api.infrastructure.security.JwtAuthenticationFilter;
 import jakarta.servlet.DispatcherType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,6 +27,7 @@ import static br.com.blog.api.infrastructure.security.SecurityConstants.PUBLIC_U
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
@@ -33,6 +36,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+
+        log.info("Configuring SecurityFilterChain with STATELESS session");
+
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)

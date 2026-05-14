@@ -26,6 +26,10 @@ springdoc:
     enabled: true
     path: /swagger-ui.html
 
+jwt:
+  secret: ${JWT_SECRET:EAiK+3p5RYGXRB8Uol1ct7BE4pWZnozzNaFsjiUDjJE=}
+  expiration: ${JWT_EXPIRATION:3600000}
+
 server:
   port: ${PORT:8080}
 

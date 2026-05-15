@@ -85,7 +85,7 @@ mvnw.cmd spring-boot:run
 ```
 
 # Documentação
-A documentação completa e interativa da API está disponível através do Swagger UI.
+Com a aplicação rodando, a documentação completa e interativa da API está disponível através do Swagger UI.
 
 **Acesse em:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 

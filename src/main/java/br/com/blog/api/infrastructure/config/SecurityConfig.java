@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static br.com.blog.api.infrastructure.security.SecurityConstants.ADMIN_URLS;
 import static br.com.blog.api.infrastructure.security.SecurityConstants.PUBLIC_URLS;
 
 @Configuration
@@ -47,10 +48,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize.dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                                 .requestMatchers(PUBLIC_URLS).permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/api/v1/categories/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/api/v1/categories/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/api/v1/categories/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, ADMIN_URLS).hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, ADMIN_URLS).hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, ADMIN_URLS).hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

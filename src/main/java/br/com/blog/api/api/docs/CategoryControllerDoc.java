@@ -35,7 +35,7 @@ public interface CategoryControllerDoc {
 
     @Operation(
             summary = "Find all categories",
-            description = "Returns paginated list of all categories with HATEOAS links"
+            description = "Returns paginated list of all categories- with HATEOAS links"
     )
     @ApiResponseGet
     ResponseEntity<PagedModel<EntityModel<CategoryResponseDTO>>> findAll(Pageable pageable);

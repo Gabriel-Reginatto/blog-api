@@ -1,4 +1,4 @@
-package br.com.blog.api.core.domain;
+package br.com.blog.api.core.enums;
 
 import br.com.blog.api.infrastructure.security.SecurityConstants;
 

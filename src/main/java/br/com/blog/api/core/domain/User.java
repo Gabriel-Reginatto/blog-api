@@ -1,5 +1,6 @@
 package br.com.blog.api.core.domain;
 
+import br.com.blog.api.core.enums.UserRole;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;

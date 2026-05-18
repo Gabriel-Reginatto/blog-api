@@ -5,7 +5,7 @@ import br.com.blog.api.api.dto.auth.RegisterResponseDTO;
 import br.com.blog.api.api.dto.token.TokenDTO;
 import br.com.blog.api.api.dto.user.request.UserCreateRequestDTO;
 import br.com.blog.api.core.domain.User;
-import br.com.blog.api.core.domain.UserRole;
+import br.com.blog.api.core.enums.UserRole;
 import br.com.blog.api.core.mapper.UserMapper;
 import br.com.blog.api.core.repositories.UserRepository;
 import br.com.blog.api.infrastructure.exception.DuplicateResourceException;

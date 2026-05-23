@@ -47,7 +47,7 @@ public class UserController implements UserControllerDoc {
 
     @GetMapping("username/{username}")
     @Override
-    public ResponseEntity<EntityModel<UserResponseDTO>> findByUsername(@PathVariable("username") String username) {
+    public ResponseEntity<EntityModel<UserResponseDTO>> findByUsername(@PathVariable String username) {
         return ResponseEntity.ok(userAssembler.toModel(userService.findByUsername(username)));
     }
 

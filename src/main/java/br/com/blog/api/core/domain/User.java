@@ -2,6 +2,7 @@ package br.com.blog.api.core.domain;
 
 import br.com.blog.api.core.enums.UserRole;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -43,6 +44,7 @@ public class User implements UserDetails {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String bio;
 
+    @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private OffsetDateTime createdAt;
 
@@ -57,12 +59,6 @@ public class User implements UserDetails {
     private List<Comment> comments = new ArrayList<>();
 
     public User() {}
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = OffsetDateTime.now();
-        this.updatedAt = OffsetDateTime.now();
-    }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

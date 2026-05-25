@@ -48,7 +48,6 @@ public class JwtTokenProvider {
 
         log.info("Creating access token for user: {}", username);
         log.debug("User roles: {}", roles);
-
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityMilliseconds);
 
@@ -120,5 +119,4 @@ public class JwtTokenProvider {
         }
         return null;
     }
-
 }

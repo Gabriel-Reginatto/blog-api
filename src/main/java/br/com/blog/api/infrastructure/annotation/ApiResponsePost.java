@@ -14,8 +14,9 @@ import static br.com.blog.api.infrastructure.annotation.ApiResponseConstants.*;
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses(value = {
         @ApiResponse(responseCode = CREATED, description = DESC_CREATED),
-        @ApiResponse(responseCode = CONFLICT, description = DESC_CONFLICT),
         @ApiResponse(responseCode = BAD_REQUEST, description = DESC_BAD_REQUEST),
+        @ApiResponse(responseCode = CONFLICT, description = DESC_CONFLICT),
+        @ApiResponse(responseCode = TOO_MANY_REQUESTS, description = TOO_MANY_REQUESTS),
         @ApiResponse(responseCode = INTERNAL_ERROR, description = DESC_INTERNAL_ERROR)
 })
 public @interface ApiResponsePost {

@@ -16,6 +16,7 @@ import static br.com.blog.api.infrastructure.annotation.ApiResponseConstants.*;
         @ApiResponse(responseCode = OK, description = DESC_OK),
         @ApiResponse(responseCode = BAD_REQUEST, description = DESC_BAD_REQUEST),
         @ApiResponse(responseCode = NOT_FOUND, description = DESC_NOT_FOUND),
+        @ApiResponse(responseCode = TOO_MANY_REQUESTS, description = DESC_MANY_REQUESTS),
         @ApiResponse(responseCode = INTERNAL_ERROR, description = DESC_INTERNAL_ERROR)
 })
 public @interface ApiResponseGet {

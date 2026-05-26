@@ -10,6 +10,7 @@ public final class ApiResponseConstants {
     public static final String BAD_REQUEST = "400";
     public static final String NOT_FOUND = "404";
     public static final String CONFLICT = "409";
+    public static final String TOO_MANY_REQUESTS = "429";
     public static final String INTERNAL_ERROR = "500";
 
     public static final String DESC_OK = "Success";
@@ -18,6 +19,7 @@ public final class ApiResponseConstants {
     public static final String DESC_BAD_REQUEST = "Bad request or validation error";
     public static final String DESC_NOT_FOUND = "Resource not found";
     public static final String DESC_CONFLICT = "Resource already exists";
+    public static final String DESC_MANY_REQUESTS = "Too many requests";
     public static final String DESC_INTERNAL_ERROR = "Internal server error";
 
 }

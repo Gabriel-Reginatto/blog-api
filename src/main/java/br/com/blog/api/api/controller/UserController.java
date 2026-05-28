@@ -53,21 +53,21 @@ public class UserController implements UserControllerDoc {
 
     @PostMapping
     @Override
-    public ResponseEntity<EntityModel<UserResponseDTO>> createUser(@Valid @RequestBody UserCreateRequestDTO request) {
+    public ResponseEntity<EntityModel<UserResponseDTO>> create(@Valid @RequestBody UserCreateRequestDTO request) {
         UserResponseDTO createdUser = userService.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(userAssembler.toModel(createdUser));
     }
 
     @PutMapping("/{id}")
     @Override
-    public ResponseEntity<EntityModel<UserResponseDTO>> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequestDTO request) {
+    public ResponseEntity<EntityModel<UserResponseDTO>> update(@PathVariable Long id, @Valid @RequestBody UserUpdateRequestDTO request) {
         UserResponseDTO updatedUser = userService.updateUser(id, request);
         return ResponseEntity.ok(userAssembler.toModel(updatedUser));
     }
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

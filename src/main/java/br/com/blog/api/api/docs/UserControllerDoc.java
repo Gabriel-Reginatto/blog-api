@@ -46,19 +46,19 @@ public interface UserControllerDoc {
             description = "Creates a new user and returns it with HATEOAS links"
     )
     @ApiResponsePost
-    ResponseEntity<EntityModel<UserResponseDTO>> createUser(@Valid @RequestBody UserCreateRequestDTO request);
+    ResponseEntity<EntityModel<UserResponseDTO>> create(@Valid @RequestBody UserCreateRequestDTO request);
 
     @Operation(
             summary = "Update a user",
             description = "Updates an existing user and returns it with HATEOAS links"
     )
     @ApiResponsePut
-    ResponseEntity<EntityModel<UserResponseDTO>> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequestDTO request);
+    ResponseEntity<EntityModel<UserResponseDTO>> update(@PathVariable Long id, @Valid @RequestBody UserUpdateRequestDTO request);
 
     @Operation(
             summary = "Delete a user",
             description = "Deletes a user by ID (returns no content)"
     )
     @ApiResponseDelete
-    ResponseEntity<Void> deleteUser(@PathVariable Long id);
+    ResponseEntity<Void> delete(@PathVariable Long id);
 }

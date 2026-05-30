@@ -1,5 +1,6 @@
 package br.com.blog.api.api.docs;
 
+import br.com.blog.api.api.dto.pagination.CustomPageResponseDTO;
 import br.com.blog.api.api.dto.user.request.UserCreateRequestDTO;
 import br.com.blog.api.api.dto.user.request.UserUpdateRequestDTO;
 import br.com.blog.api.api.dto.user.response.UserResponseDTO;
@@ -12,10 +13,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "Users", description = "Endpoints for user management")
 public interface UserControllerDoc {
@@ -25,7 +26,9 @@ public interface UserControllerDoc {
             description = "Returns paginated list of all users with HATEOAS links"
     )
     @ApiResponseGet
-    ResponseEntity<PagedModel<EntityModel<UserResponseDTO>>> findAll(Pageable pageable);
+    ResponseEntity<CustomPageResponseDTO<UserResponseDTO>> findAll(
+            @RequestParam(required = false) String username,
+            Pageable pageable);
 
     @Operation(
             summary = "Find user by ID",

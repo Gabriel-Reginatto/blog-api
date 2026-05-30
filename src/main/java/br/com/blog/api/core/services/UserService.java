@@ -1,5 +1,6 @@
 package br.com.blog.api.core.services;
 
+import br.com.blog.api.api.dto.pagination.CustomPageResponseDTO;
 import br.com.blog.api.api.dto.user.request.UserCreateRequestDTO;
 import br.com.blog.api.api.dto.user.request.UserUpdateRequestDTO;
 import br.com.blog.api.api.dto.user.response.UserResponseDTO;
@@ -71,13 +72,28 @@ public class UserService {
         return userMapper.toResponseDTO(savedEntity);
     }
 
-    public Page<UserResponseDTO> findAll(Pageable pageable) {
-
+    public CustomPageResponseDTO<UserResponseDTO> findAll(
+            String username,
+            Pageable pageable) {
         logger.info("Finding all users with pagination: page {}, size {}", pageable.getPageNumber(), pageable.getPageSize());
 
-        Page<User> page = userRepository.findAll(pageable);
+        Page<User> users;
 
-        return page.map(userMapper::toResponseDTO);
+        if (username != null && !username.isEmpty()) {
+            users = userRepository.findByUsernameContainingIgnoreCase(username, pageable);
+        } else {
+            users = userRepository.findAll(pageable);
+        }
+
+        Page<UserResponseDTO> dtoPage = users.map(userMapper::toResponseDTO);
+
+        return new CustomPageResponseDTO<>(
+                dtoPage.getContent(),
+                dtoPage.getNumber(),
+                dtoPage.getSize(),
+                dtoPage.getTotalElements(),
+                dtoPage.getTotalPages()
+        );
     }
 
     public UserResponseDTO updateUser(Long id, UserUpdateRequestDTO request) {

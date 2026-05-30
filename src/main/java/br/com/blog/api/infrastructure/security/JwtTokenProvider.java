@@ -97,7 +97,15 @@ public class JwtTokenProvider {
 
 
     public String getUsernameFromToken(String token) {
-        return JWT.decode(token).getSubject();
+        try {
+            return JWT.require(algorithm)
+                    .build()
+                    .verify(token)
+                    .getSubject();
+        } catch (JWTVerificationException e) {
+            log.error("Failed to extract username from token: {}", e.getMessage());
+            return null;
+        }
     }
 
     public boolean validateToken(String token) {
@@ -105,8 +113,10 @@ public class JwtTokenProvider {
             JWT.require(algorithm)
                     .build()
                     .verify(token);
+            log.debug("Token validated successfully");
             return true;
         } catch (JWTVerificationException e) {
+            log.error("Token validation failed: {}", e.getMessage());
             return false;
         }
     }

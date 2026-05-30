@@ -2,16 +2,15 @@ package br.com.blog.api.api.controller;
 
 import br.com.blog.api.api.assembler.UserModelAssembler;
 import br.com.blog.api.api.docs.UserControllerDoc;
+import br.com.blog.api.api.dto.pagination.CustomPageResponseDTO;
 import br.com.blog.api.api.dto.user.request.UserCreateRequestDTO;
 import br.com.blog.api.api.dto.user.request.UserUpdateRequestDTO;
 import br.com.blog.api.api.dto.user.response.UserResponseDTO;
 import br.com.blog.api.core.services.UserService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +31,10 @@ public class UserController implements UserControllerDoc {
 
     @GetMapping
     @Override
-    public ResponseEntity<PagedModel<EntityModel<UserResponseDTO>>> findAll(Pageable pageable) {
-        Page<UserResponseDTO> page = userService.findAll(pageable);
-        return ResponseEntity.ok(pagedAssembler.toModel(page, userAssembler));
+    public ResponseEntity<CustomPageResponseDTO<UserResponseDTO>> findAll(
+            @RequestParam(required = false) String username,
+            Pageable pageable) {
+        return ResponseEntity.ok(userService.findAll(username, pageable));
     }
 
 
@@ -55,7 +55,8 @@ public class UserController implements UserControllerDoc {
     @Override
     public ResponseEntity<EntityModel<UserResponseDTO>> create(@Valid @RequestBody UserCreateRequestDTO request) {
         UserResponseDTO createdUser = userService.createUser(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userAssembler.toModel(createdUser));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userAssembler.toModel(createdUser));
     }
 
     @PutMapping("/{id}")

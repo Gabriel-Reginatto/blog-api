@@ -1,5 +1,6 @@
 package br.com.blog.api.api.docs;
 
+import br.com.blog.api.api.dto.pagination.CustomPageResponseDTO;
 import br.com.blog.api.api.dto.post.request.PostCreateRequestDTO;
 import br.com.blog.api.api.dto.post.request.PostUpdateRequestDTO;
 import br.com.blog.api.api.dto.post.response.PostResponseDTO;
@@ -32,7 +33,7 @@ public interface PostControllerDoc {
             description = "Returns paginated list of all posts with HATEOAS links "
     )
     @ApiResponseGet
-    ResponseEntity<PagedModel<EntityModel<PostResponseDTO>>> findAll(Pageable pageable);
+    ResponseEntity<CustomPageResponseDTO<PostResponseDTO>> findAll(Pageable pageable);
 
     @Operation(
             summary = "Create a post",

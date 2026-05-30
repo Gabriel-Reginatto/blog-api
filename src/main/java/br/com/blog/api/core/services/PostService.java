@@ -1,5 +1,6 @@
 package br.com.blog.api.core.services;
 
+import br.com.blog.api.api.dto.pagination.CustomPageResponseDTO;
 import br.com.blog.api.api.dto.post.request.PostCreateRequestDTO;
 import br.com.blog.api.api.dto.post.response.PostResponseDTO;
 import br.com.blog.api.api.dto.post.request.PostUpdateRequestDTO;
@@ -85,13 +86,21 @@ public class PostService {
         return postMapper.toResponseDTO(post);
     }
 
-    public Page<PostResponseDTO> findAll(Pageable pageable) {
+    public CustomPageResponseDTO<PostResponseDTO> findAll(Pageable pageable) {
 
-        logger.info("Findind all posts with pagination: page {}, size {}",
+        logger.info("Finding all posts with pagination: page {}, size {}",
                 pageable.getPageNumber(), pageable.getPageSize());
 
-        Page<Post> page = postRepository.findAll(pageable);
-        return page.map(postMapper::toResponseDTO);
+        Page<Post> posts = postRepository.findAll(pageable);
+        Page<PostResponseDTO> dtoPage = posts.map(postMapper::toResponseDTO);
+
+        return new CustomPageResponseDTO<>(
+                dtoPage.getContent(),
+                dtoPage.getNumber(),
+                dtoPage.getSize(),
+                dtoPage.getTotalElements(),
+                dtoPage.getTotalPages()
+        );
     }
 
     public PostResponseDTO updatePost(Long id, PostUpdateRequestDTO request){

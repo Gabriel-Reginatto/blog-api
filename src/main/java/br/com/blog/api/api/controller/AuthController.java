@@ -1,5 +1,6 @@
 package br.com.blog.api.api.controller;
 
+import br.com.blog.api.api.docs.AuthControllerDoc;
 import br.com.blog.api.api.dto.auth.LoginRequestDTO;
 import br.com.blog.api.api.dto.auth.RegisterResponseDTO;
 import br.com.blog.api.api.dto.token.TokenDTO;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-public class AuthController {
+public class AuthController implements AuthControllerDoc {
 
     private final AuthService authService;
 
@@ -25,6 +26,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponseDTO> register(@Valid @RequestBody UserCreateRequestDTO request) {
+
         var user = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }

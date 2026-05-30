@@ -66,7 +66,7 @@ public class AuthService {
         user.setPassword(encryptedPassword);
         user.setBio(request.bio());
         user.setEmail(request.email());
-        user.setRole(UserRole.USER);
+        user.setRole(UserRole.ROLE_USER);
         user.setCreatedAt(OffsetDateTime.now());
 
         var savedUser = userRepository.save(user);

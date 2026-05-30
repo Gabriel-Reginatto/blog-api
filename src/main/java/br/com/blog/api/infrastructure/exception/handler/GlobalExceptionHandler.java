@@ -1,6 +1,7 @@
 package br.com.blog.api.infrastructure.exception.handler;
 
 import br.com.blog.api.infrastructure.exception.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -26,6 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
+
 
     @ExceptionHandler(DuplicateResourceException.class)
     public final ResponseEntity<ErrorResponse> handleDuplicate(DuplicateResourceException ex) {

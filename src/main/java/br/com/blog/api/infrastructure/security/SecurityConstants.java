@@ -22,7 +22,6 @@ public final class SecurityConstants {
     // Admin only endpoints
     public static final String[] ADMIN_URLS = {
             "/api/v1/categories/**",
-            "/api/v1/users/**"
 
     };
 

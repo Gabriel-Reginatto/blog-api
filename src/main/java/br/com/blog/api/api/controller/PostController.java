@@ -2,6 +2,7 @@ package br.com.blog.api.api.controller;
 
 import br.com.blog.api.api.assembler.PostModelAssembler;
 import br.com.blog.api.api.docs.PostControllerDoc;
+import br.com.blog.api.api.dto.pagination.CustomPageResponseDTO;
 import br.com.blog.api.api.dto.post.request.PostCreateRequestDTO;
 import br.com.blog.api.api.dto.post.request.PostUpdateRequestDTO;
 import br.com.blog.api.api.dto.post.response.PostResponseDTO;
@@ -40,11 +41,8 @@ public class PostController implements PostControllerDoc {
     }
 
     @GetMapping
-    public ResponseEntity<PagedModel<EntityModel<PostResponseDTO>>> findAll(Pageable pageable) {
-        Page<PostResponseDTO> page = postService.findAll(pageable);
-        PagedModel<EntityModel<PostResponseDTO>> pagedModel = pagedAssembler.toModel(page, postAssembler);
-
-        return ResponseEntity.ok(pagedModel);
+    public ResponseEntity<CustomPageResponseDTO<PostResponseDTO>> findAll(Pageable pageable) {
+        return ResponseEntity.ok(postService.findAll(pageable));
     }
 
     @PostMapping

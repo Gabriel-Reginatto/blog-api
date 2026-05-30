@@ -17,7 +17,6 @@ public class UserModelAssembler implements RepresentationModelAssembler<UserResp
 
         return EntityModel.of(user,
                 linkTo(methodOn(UserController.class).findById(user.id())).withSelfRel(),
-                linkTo(methodOn(UserController.class).findAll(null)).withRel("allUsers"),
                 linkTo(methodOn(UserController.class).update(user.id(), null)).withRel("update").withType("PUT"),
                 linkTo(methodOn(UserController.class).delete(user.id())).withRel("delete").withType("DELETE"),
                 linkTo(methodOn(UserController.class).create(null)).withRel("create").withType("POST")

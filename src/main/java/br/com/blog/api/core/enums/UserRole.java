@@ -4,8 +4,8 @@ import br.com.blog.api.infrastructure.security.SecurityConstants;
 
 public enum UserRole {
 
-    ADMIN(SecurityConstants.ROLE_ADMIN),
-    USER(SecurityConstants.ROLE_USER);
+    ROLE_ADMIN(SecurityConstants.ROLE_ADMIN),
+    ROLE_USER(SecurityConstants.ROLE_USER);
 
     private final String role;
 
@@ -23,7 +23,8 @@ public enum UserRole {
                 return r;
             }
         }
-        return USER;
+        return ROLE_USER;
+
     }
 
 }
